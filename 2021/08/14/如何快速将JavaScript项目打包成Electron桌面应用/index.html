@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="如何快速将JavaScript项目打包成Electron桌面应用前情提要：为了完成某门课设作业，使用 html + css + javascript 与 bootstrap 框架、d3.js、dagre-d3 等库糊了两个web演示界面（分别是 赫夫曼编码演示 与 AOE网演示 ）。写完后，尝试使用 electron 将其打包成桌面应用，方便助教查看。">
+  <meta name="description" content="前情提要：为了完成某门课设作业，使用 html + css + javascript 与 bootstrap 框架、d3.js、dagre-d3 等库糊了两个web演示界面（分别是 赫夫曼编码演示 与 AOE网演示 ）。写完后，尝试使用 electron 将其打包成桌面应用，方便助教查看。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何快速将JavaScript项目打包成Electron桌面应用">
 <meta property="og:url" content="http://example.com/2021/08/14/%E5%A6%82%E4%BD%95%E5%BF%AB%E9%80%9F%E5%B0%86JavaScript%E9%A1%B9%E7%9B%AE%E6%89%93%E5%8C%85%E6%88%90Electron%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8/index.html">
 <meta property="og:site_name" content="Qkri 的个人博客">
-<meta property="og:description" content="如何快速将JavaScript项目打包成Electron桌面应用前情提要：为了完成某门课设作业，使用 html + css + javascript 与 bootstrap 框架、d3.js、dagre-d3 等库糊了两个web演示界面（分别是 赫夫曼编码演示 与 AOE网演示 ）。写完后，尝试使用 electron 将其打包成桌面应用，方便助教查看。">
+<meta property="og:description" content="前情提要：为了完成某门课设作业，使用 html + css + javascript 与 bootstrap 框架、d3.js、dagre-d3 等库糊了两个web演示界面（分别是 赫夫曼编码演示 与 AOE网演示 ）。写完后，尝试使用 electron 将其打包成桌面应用，方便助教查看。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-14T07:06:19.000Z">
-<meta property="article:modified_time" content="2021-08-14T07:49:51.388Z">
+<meta property="article:modified_time" content="2021-08-14T10:21:57.925Z">
 <meta property="article:author" content="Qkri">
 <meta property="article:tag" content="web electron javascript">
 <meta name="twitter:card" content="summary">
@@ -186,7 +186,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-08-14 15:06:19 / 修改时间：15:49:51" itemprop="dateCreated datePublished" datetime="2021-08-14T15:06:19+08:00">2021-08-14</time>
+              <time title="创建时间：2021-08-14 15:06:19 / 修改时间：18:21:57" itemprop="dateCreated datePublished" datetime="2021-08-14T15:06:19+08:00">2021-08-14</time>
             </span>
 
           
@@ -200,7 +200,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="如何快速将JavaScript项目打包成Electron桌面应用"><a href="#如何快速将JavaScript项目打包成Electron桌面应用" class="headerlink" title="如何快速将JavaScript项目打包成Electron桌面应用"></a>如何快速将JavaScript项目打包成Electron桌面应用</h1><p>前情提要：<br>为了完成某门课设作业，使用 html + css + javascript 与 bootstrap 框架、d3.js、dagre-d3 等库糊了两个web演示界面（分别是 赫夫曼编码演示 与 AOE网演示 ）。<br>写完后，尝试使用 electron 将其打包成桌面应用，方便助教查看。</p>
+        <p>前情提要：<br>为了完成某门课设作业，使用 html + css + javascript 与 bootstrap 框架、d3.js、dagre-d3 等库糊了两个web演示界面（分别是 赫夫曼编码演示 与 AOE网演示 ）。<br>写完后，尝试使用 electron 将其打包成桌面应用，方便助教查看。</p>
 <span id="more"></span>
 
 <h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p>此处省略。网上资料比较多。</p>
@@ -309,7 +309,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%BF%AB%E9%80%9F%E5%B0%86JavaScript%E9%A1%B9%E7%9B%AE%E6%89%93%E5%8C%85%E6%88%90Electron%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">如何快速将JavaScript项目打包成Electron桌面应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.</span> <span class="nav-text">环境配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E6%95%B4%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.2.</span> <span class="nav-text">调整项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-1-%E6%96%B0%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">1.2.1.</span> <span class="nav-text">Step 1. 新建配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-2-%E6%96%B0%E5%BB%BAmain-js-%E6%96%87%E4%BB%B6"><span class="nav-number">1.2.2.</span> <span class="nav-text">Step 2. 新建main.js 文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-3-%E5%BC%95%E7%94%A8%E5%BA%93%E5%86%B2%E7%AA%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.3.</span> <span class="nav-text">Step 3. 引用库冲突的解决方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E9%A1%B9%E7%9B%AE%E6%89%93%E5%8C%85%E6%88%90-Electron-%E5%BA%94%E7%94%A8"><span class="nav-number">1.3.</span> <span class="nav-text">将项目打包成 Electron 应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8CAPP"><span class="nav-number">1.4.</span> <span class="nav-text">运行APP</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">环境配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E6%95%B4%E9%A1%B9%E7%9B%AE"><span class="nav-number">2.</span> <span class="nav-text">调整项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-1-%E6%96%B0%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">2.1.</span> <span class="nav-text">Step 1. 新建配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-2-%E6%96%B0%E5%BB%BAmain-js-%E6%96%87%E4%BB%B6"><span class="nav-number">2.2.</span> <span class="nav-text">Step 2. 新建main.js 文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-3-%E5%BC%95%E7%94%A8%E5%BA%93%E5%86%B2%E7%AA%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F"><span class="nav-number">2.3.</span> <span class="nav-text">Step 3. 引用库冲突的解决方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E9%A1%B9%E7%9B%AE%E6%89%93%E5%8C%85%E6%88%90-Electron-%E5%BA%94%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">将项目打包成 Electron 应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8CAPP"><span class="nav-number">4.</span> <span class="nav-text">运行APP</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
