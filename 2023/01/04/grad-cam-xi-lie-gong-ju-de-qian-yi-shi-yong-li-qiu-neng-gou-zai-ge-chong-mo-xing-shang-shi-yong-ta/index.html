@@ -4,9 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="姿态估计模型使用：YoloPose, TransPose, AlphaPose, Qkri 的个人博客">
-    <meta name="description" content="由于师兄让我帮助完成一些实验验证任务，需要使用YoloPose, TransPose, AlphaPose这三个人体姿态估计的模型，整理了这三个模型的开源代码仓库和环境配置要点，以备不时之需。
-YoloPose 环境配置这个貌似难点在于找到">
+    <meta name="keywords" content="Grad-CAM系列工具的迁移使用：力求能够在各种模型上使用它, Qkri 的个人博客">
+    <meta name="description" content="环境准备：pip install grad-cam参考资料：https://jacobgil.github.io/pytorch-gradcam-book/introduction.html
+
+
+Tutorial : 实例分割网络两个需要确">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +20,7 @@ YoloPose 环境配置这个貌似难点在于找到">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>姿态估计模型使用：YoloPose, TransPose, AlphaPose | Qkri 的个人博客</title>
+    <title>Grad-CAM系列工具的迁移使用：力求能够在各种模型上使用它 | Qkri 的个人博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
     <style>
@@ -355,12 +357,12 @@ YoloPose 环境配置这个貌似难点在于找到">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/fffqh/img_hosting/img/20230103025914.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/fffqh/img_hosting/img/20230105123403.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">姿态估计模型使用：YoloPose, TransPose, AlphaPose</h1>
+                    <h1 class="description center-align post-title">Grad-CAM系列工具的迁移使用：力求能够在各种模型上使用它</h1>
                 </div>
             </div>
         </div>
@@ -400,8 +402,8 @@ YoloPose 环境配置这个貌似难点在于找到">
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E6%A8%A1%E5%9E%8B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="post-category">
-                                模型环境配置
+                            <a href="/categories/%E6%A8%A1%E5%9E%8B%E8%BF%81%E7%A7%BB%E4%BD%BF%E7%94%A8/" class="post-category">
+                                模型迁移使用
                             </a>
                         
                     </div>
@@ -413,28 +415,28 @@ YoloPose 环境配置这个貌似难点在于找到">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-01-03
+                    2023-01-04
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-01-03
+                    2023-01-05
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    686
+                    1.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    7 分
                 </div>
                 
 
@@ -462,64 +464,187 @@ YoloPose 环境配置这个貌似难点在于找到">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>由于师兄让我帮助完成一些实验验证任务，需要使用YoloPose, TransPose, AlphaPose这三个人体姿态估计的模型，整理了这三个模型的开源代码仓库和环境配置要点，以备不时之需。</p>
-<h2 id="YoloPose-环境配置"><a href="#YoloPose-环境配置" class="headerlink" title="YoloPose 环境配置"></a>YoloPose 环境配置</h2><p>这个貌似难点在于找到代码和模型文件（因为官方提供的模型权重文件下载链接是失效的），师兄找到了一个别人fork的仓库可以使用。</p>
+                <div class="note info no-icon"><p>环境准备：<code>pip install grad-cam</code><br>参考资料：<a target="_blank" rel="noopener" href="https://jacobgil.github.io/pytorch-gradcam-book/introduction.html">https://jacobgil.github.io/pytorch-gradcam-book/introduction.html</a></p>
+</div>
+
+<h2 id="Tutorial-实例分割网络"><a href="#Tutorial-实例分割网络" class="headerlink" title="Tutorial : 实例分割网络"></a>Tutorial : 实例分割网络</h2><h3 id="两个需要确定的关键问题"><a href="#两个需要确定的关键问题" class="headerlink" title="两个需要确定的关键问题"></a>两个需要确定的关键问题</h3><ol>
+<li>确定 output tensor，因为使用的pytorch grad-cam库的接口假定模型的输出是一个tensor数据结构</li>
+<li>确定 target（一个需要最大化的对象，理解为计算梯度的目标函数，梯度回传后，可以得到最关键的像素点，即得到注意力激活热力图）</li>
+</ol>
+<h3 id="问题1：确定-output-tensor"><a href="#问题1：确定-output-tensor" class="headerlink" title="问题1：确定 output tensor"></a>问题1：确定 output tensor</h3><p>由于现有的实例分割网络deeplabv3_resnet50的输出是一个字典结构，所以需要在model类外再封装一层，将模型的输出变为一个tensor结构，具体方法如下：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">SegmentationModelOutputWrapper</span><span class="token punctuation">(</span>torch<span class="token punctuation">.</span>nn<span class="token punctuation">.</span>Module<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> model<span class="token punctuation">)</span><span class="token punctuation">:</span> 
+        <span class="token builtin">super</span><span class="token punctuation">(</span>SegmentationModelOutputWrapper<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>model <span class="token operator">=</span> model
+        
+    <span class="token keyword">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>model<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token string">"out"</span><span class="token punctuation">]</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="问题2：确定-target"><a href="#问题2：确定-target" class="headerlink" title="问题2：确定 target"></a>问题2：确定 target</h3><p>在实例分割网络中，确定一个类别后（例如car），就可以将target设置为所有属于该类别的像素点被预测为该类别的概率之和。最大化这个概率，也就最接近我们的预测结果，即可以观察哪些像素在起重要作用。</p>
+<p>具体实现如下：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">SemanticSegmentationTarget</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> category<span class="token punctuation">,</span> mask<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>category <span class="token operator">=</span> category
+        self<span class="token punctuation">.</span>mask <span class="token operator">=</span> torch<span class="token punctuation">.</span>from_numpy<span class="token punctuation">(</span>mask<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>is_available<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>mask <span class="token operator">=</span> self<span class="token punctuation">.</span>mask<span class="token punctuation">.</span>cuda<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        
+    <span class="token keyword">def</span> <span class="token function">__call__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> model_output<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>model_output<span class="token punctuation">[</span>self<span class="token punctuation">.</span>category<span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span> <span class="token punctuation">]</span> <span class="token operator">*</span> self<span class="token punctuation">.</span>mask<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="调用grad-cam接口，获得热力图"><a href="#调用grad-cam接口，获得热力图" class="headerlink" title="调用grad-cam接口，获得热力图"></a>调用grad-cam接口，获得热力图</h3><p>回答完上述两个问题，并准备好所需的实现后，即可调用grad-cam接口，完成最后一步啦！</p>
+<ol>
+<li><p>读取一张图片，得到 input_tensor</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">image_url <span class="token operator">=</span> <span class="token string">"https://farm1.staticflickr.com/6/9606553_ccc7518589_z.jpg"</span>
+image <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span>Image<span class="token punctuation">.</span><span class="token builtin">open</span><span class="token punctuation">(</span>requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>image_url<span class="token punctuation">,</span> stream<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">.</span>raw<span class="token punctuation">)</span><span class="token punctuation">)</span>
+rgb_img <span class="token operator">=</span> np<span class="token punctuation">.</span>float32<span class="token punctuation">(</span>image<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">255</span>
+input_tensor <span class="token operator">=</span> preprocess_image<span class="token punctuation">(</span>rgb_img<span class="token punctuation">,</span>
+                                mean<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">0.485</span><span class="token punctuation">,</span> <span class="token number">0.456</span><span class="token punctuation">,</span> <span class="token number">0.406</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                                std<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">0.229</span><span class="token punctuation">,</span> <span class="token number">0.224</span><span class="token punctuation">,</span> <span class="token number">0.225</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>使用问题1中定义的模型类，准备好所需的模型</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">model <span class="token operator">=</span> SegmentationModelOutputWrapper<span class="token punctuation">(</span>model<span class="token punctuation">)</span>
+output <span class="token operator">=</span> model<span class="token punctuation">(</span>input_tensor<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+<li><p>准备好构造target所需的目标类别的mask矩阵</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 该实例分割网络的类别设置常量</span>
+sem_classes <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token string">'__background__'</span><span class="token punctuation">,</span> <span class="token string">'aeroplane'</span><span class="token punctuation">,</span> <span class="token string">'bicycle'</span><span class="token punctuation">,</span> <span class="token string">'bird'</span><span class="token punctuation">,</span> <span class="token string">'boat'</span><span class="token punctuation">,</span> <span class="token string">'bottle'</span><span class="token punctuation">,</span> <span class="token string">'bus'</span><span class="token punctuation">,</span>
+    <span class="token string">'car'</span><span class="token punctuation">,</span> <span class="token string">'cat'</span><span class="token punctuation">,</span> <span class="token string">'chair'</span><span class="token punctuation">,</span> <span class="token string">'cow'</span><span class="token punctuation">,</span> <span class="token string">'diningtable'</span><span class="token punctuation">,</span> <span class="token string">'dog'</span><span class="token punctuation">,</span> <span class="token string">'horse'</span><span class="token punctuation">,</span> <span class="token string">'motorbike'</span><span class="token punctuation">,</span>
+    <span class="token string">'person'</span><span class="token punctuation">,</span> <span class="token string">'pottedplant'</span><span class="token punctuation">,</span> <span class="token string">'sheep'</span><span class="token punctuation">,</span> <span class="token string">'sofa'</span><span class="token punctuation">,</span> <span class="token string">'train'</span><span class="token punctuation">,</span> <span class="token string">'tvmonitor'</span>
+<span class="token punctuation">]</span>
+sem_class_to_idx <span class="token operator">=</span> <span class="token punctuation">&#123;</span>cls<span class="token punctuation">:</span> idx <span class="token keyword">for</span> <span class="token punctuation">(</span>idx<span class="token punctuation">,</span> cls<span class="token punctuation">)</span> <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>sem_classes<span class="token punctuation">)</span><span class="token punctuation">&#125;</span>
+<span class="token comment"># 得到car类别的索引</span>
+car_category <span class="token operator">=</span> sem_class_to_idx<span class="token punctuation">[</span><span class="token string">"car"</span><span class="token punctuation">]</span>
+
+<span class="token comment"># 将模型输出归一化，共21个类别 shape = (1,21,h,w)</span>
+normalized_masks <span class="token operator">=</span> torch<span class="token punctuation">.</span>nn<span class="token punctuation">.</span>functional<span class="token punctuation">.</span>softmax<span class="token punctuation">(</span>output<span class="token punctuation">,</span> dim<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span>cpu<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment"># 将类别维度最大值的索引填入后两维中 (21,h,w)->(h,w)</span>
+car_mask <span class="token operator">=</span> normalized_masks<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">.</span>argmax<span class="token punctuation">(</span>axis<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">.</span>detach<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>cpu<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>numpy<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment"># 被预测为car的像素点置为1(255)，否则为0</span>
+car_mask_uint8 <span class="token operator">=</span> <span class="token number">255</span> <span class="token operator">*</span> np<span class="token punctuation">.</span>uint8<span class="token punctuation">(</span>car_mask <span class="token operator">==</span> car_category<span class="token punctuation">)</span>
+car_mask_float <span class="token operator">=</span> np<span class="token punctuation">.</span>float32<span class="token punctuation">(</span>car_mask <span class="token operator">==</span> car_category<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>确定targets</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">targets <span class="token operator">=</span> <span class="token punctuation">[</span>SemanticSegmentationTarget<span class="token punctuation">(</span>car_category<span class="token punctuation">,</span> car_mask_float<span class="token punctuation">)</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>确定target_layers</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">target_layers <span class="token operator">=</span> <span class="token punctuation">[</span>model<span class="token punctuation">.</span>model<span class="token punctuation">.</span>backbone<span class="token punctuation">.</span>layer4<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>调用GradCAM接口</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">with</span> GradCAM<span class="token punctuation">(</span>model<span class="token operator">=</span>model<span class="token punctuation">,</span>
+             target_layers<span class="token operator">=</span>target_layers<span class="token punctuation">,</span>
+             use_cuda<span class="token operator">=</span>torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>is_available<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">as</span> cam<span class="token punctuation">:</span>
+    grayscale_cam <span class="token operator">=</span> cam<span class="token punctuation">(</span>input_tensor<span class="token operator">=</span>input_tensor<span class="token punctuation">,</span>
+                        targets<span class="token operator">=</span>targets<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">]</span>
+    cam_image <span class="token operator">=</span> show_cam_on_image<span class="token punctuation">(</span>rgb_img<span class="token punctuation">,</span> grayscale_cam<span class="token punctuation">,</span> use_rgb<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+img <span class="token operator">=</span> Image<span class="token punctuation">.</span>fromarray<span class="token punctuation">(</span>cam_image<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>完成基于实例分割网络的激活图生成，关键点在于<strong>targets的确定</strong>，注意target类的定义方法，需要定义<code>__call__</code>方法。</p>
+<h2 id="Tutorial：目标检测网络"><a href="#Tutorial：目标检测网络" class="headerlink" title="Tutorial：目标检测网络"></a>Tutorial：目标检测网络</h2><p>完成实例分割网络的类激活图的生成，是不是对目标检测网络也摩拳擦掌了呢？</p>
+<p>可惜仍有许多困难。</p>
+<p>首先目标检测网络有非常多的后处理步骤（例如nms），这些步骤往往是<strong>不可导的</strong>（或者需要重写模型网络使之可导），这下麻烦大了！所有基于梯度的方法都将无法使用。</p>
+<p><strong>解决方法：使用不基于梯度的方法：）</strong></p>
+<blockquote>
 <ul>
-<li>官方仓库地址：<a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-yolov5/tree/yolo-pose">TexasInstruments/edgeai-yolov5 at yolo-pose (github.com)</a></li>
-<li>可以使用的仓库地址：<a target="_blank" rel="noopener" href="https://github.com/BingfengYan/yolo_pose">BingfengYan/yolo_pose (github.com)</a></li>
-<li>我的仓库地址（以防万一我再fork一份得了）：<a target="_blank" rel="noopener" href="https://github.com/fffqh/yolo_pose">fffqh/yolo_pose (github.com)</a></li>
+<li>基于梯度的方法有：GradCAM, GradCAM++, LayerCAM, etc.</li>
+<li>不基于梯度的方法有：AblationCAM, ScoreCAM, and EigenCAM.</li>
 </ul>
-<p>使用的模型测试命令：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">python test.py --data coco_kpts.yaml --img <span class="token number">960</span> --conf <span class="token number">0.001</span> --iou <span class="token number">0.65</span> --weights <span class="token string">"path to the pre-trained ckpt"</span> --kpt-label<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
+</blockquote>
+<h3 id="两个关键问题"><a href="#两个关键问题" class="headerlink" title="两个关键问题"></a>两个关键问题</h3><p>同实例分割网络一样，接下来是要解决的两个关键问题：</p>
+<ol>
+<li>output tensor 问题：对于目标检测网络，我们将特征提取部分的结果作为output tensor。也就是说，将FPN部分的输出作为output tensor使用，但需要进行一些<strong>自定义的变换</strong>（这是关键！）。</li>
+<li>target 设定问题：需要自定义一个最大化的目标，可以考虑使用检测框的预测分数、与groundtruth的IOU值等。</li>
+</ol>
+<h3 id="问题1：设置针对FPN的自定义变换，得到output-tensor"><a href="#问题1：设置针对FPN的自定义变换，得到output-tensor" class="headerlink" title="问题1：设置针对FPN的自定义变换，得到output tensor"></a>问题1：设置针对FPN的自定义变换，得到output tensor</h3><p>首先，来看一张FPN的细节图（图源<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1dh411U7D9/?spm_id_from=333.337.search-card.all.click&vd_source=d40deb214bf433b83a2d59ac67872db6">b站视频</a>），可以看出FPN部分的输出是5张特征图。在具体的代码实现中，这五张特征图是以有序字典的方式存储的，因此，我们需要自定义一个变换，将这五张tensor整合成一个tensor output。</p>
+<p>可以想象，该变换需要包括：</p>
 <ul>
-<li>注意 coco_kpts.yaml 文件需要从<strong>官方仓库</strong> <a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-yolov5/tree/yolo-pose">TexasInstruments/edgeai-yolov5 at yolo-pose (github.com)</a> 中的 data 目录中复制一份到项目的根目录下</li>
-<li>注意需要把”path to the pre-trained ckpt” 替换成下载的模型文件路径，例如使用<code>--weights last-pretrained.pt</code></li>
+<li>将5个tensor的大小调整为一致的大小</li>
+<li>将5个tensor进行融合操作（例如拼接、相加等操作）</li>
 </ul>
-<p>使用的脚本（有一些特殊任务需要替换验证的数据集，采用软连接的方式替换）：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token keyword">for</span> <span class="token for-or-select variable">num</span> <span class="token keyword">in</span> <span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">..</span><span class="token number">10</span><span class="token punctuation">&#125;</span>
-<span class="token keyword">do</span>
-<span class="token function">rm</span> -rf /root/coco_kpts/images/val2017
-<span class="token function">ln</span> -s <span class="token string">'/root/autodl-tmp/whole/'</span><span class="token variable">$num</span> <span class="token string">'/root/coco_kpts/images/val2017'</span>
-<span class="token function">ls</span> -l /root/coco_kpts/images/
-python test.py --data coco_kpts.yaml --img <span class="token number">960</span> --conf <span class="token number">0.001</span> --iou <span class="token number">0.65</span> --weights last-pretrained.pt --kpt-label
-<span class="token keyword">done</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/fffqh/img_hosting/img/20230105143355.png"></p>
+<p>自定义的变换操作如下，总体来说就是<strong>上采样+拼接</strong>。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">fasterrcnn_reshape_transform</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    target_size <span class="token operator">=</span> x<span class="token punctuation">[</span><span class="token string">'pool'</span><span class="token punctuation">]</span><span class="token punctuation">.</span>size<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">2</span> <span class="token punctuation">:</span> <span class="token punctuation">]</span>
+    activations <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> key<span class="token punctuation">,</span> value <span class="token keyword">in</span> x<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># 进行上采样</span>
+        activations<span class="token punctuation">.</span>append<span class="token punctuation">(</span>torch<span class="token punctuation">.</span>nn<span class="token punctuation">.</span>functional<span class="token punctuation">.</span>interpolate<span class="token punctuation">(</span>torch<span class="token punctuation">.</span><span class="token builtin">abs</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">,</span> target_size<span class="token punctuation">,</span> mode<span class="token operator">=</span><span class="token string">'bilinear'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token comment"># 进行拼接</span>
+    activations <span class="token operator">=</span> torch<span class="token punctuation">.</span>cat<span class="token punctuation">(</span>activations<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> activations<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="TransPose-环境配置"><a href="#TransPose-环境配置" class="headerlink" title="TransPose 环境配置"></a>TransPose 环境配置</h2><p>TransPose貌似是最简单的一个，遇到的问题没那么多，官方仓库地址：<a target="_blank" rel="noopener" href="https://github.com/yangsenius/TransPose">yangsenius/TransPose: PyTorch Implementation for “TransPose: Keypoint localization via Transformer”, ICCV 2021. (github.com)</a>。</p>
-<p>需要下载特殊格式(yolo格式)的coco标注文件，从官方仓库的readme中进入下载链接即可：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/fffqh/img_hosting/img/20230103023917.png"></p>
-<p>需要下载共7个预训练模型文件，从官方仓库的readme中进入下载链接即可：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/fffqh/img_hosting/img/20230103023950.png"></p>
-<p>使用的脚本：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token keyword">for</span> <span class="token for-or-select variable">num</span> <span class="token keyword">in</span> <span class="token punctuation">&#123;</span><span class="token number">0</span><span class="token punctuation">..</span><span class="token number">9</span><span class="token punctuation">&#125;</span>
-<span class="token keyword">do</span>
-<span class="token function">rm</span> -rf ./data/coco/images/val2017
-<span class="token function">ln</span> -s <span class="token string">'/root/autodl-tmp/whole/'</span><span class="token variable">$num</span> ./data/coco/images/val2017
-python tools/test.py --cfg experiments/coco/transpose_h/TP_H_w32_256x192_stage3_1_4_d64_h128_relu_enc4_mh1.yaml TEST.USE_GT_BBOX True
-<span class="token keyword">done</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="问题2：目标确定，设置target"><a href="#问题2：目标确定，设置target" class="headerlink" title="问题2：目标确定，设置target"></a>问题2：目标确定，设置target</h3><p>对于目标检测问题来说，可以设置为 target 的包括检测框的类别和坐标属性等。</p>
+<p>这里采用综合类别和坐标的 target，具体步骤如下：</p>
+<blockquote>
+<ol>
+<li>对于每一个 ground truth 的 检测框，计算所有预测的检测框与其的 IOU 值的大小<ul>
+<li>检测该 IOU 是否在阈值之上，否则将该检测框的 score 置为0</li>
+<li>检测该检测框的类别是否与 ground truth 的检测框一致，否则将该检测框的 score 置为0</li>
+<li>如果 score 非零，则 score = IOU + 类别概率得分</li>
+</ul>
+</li>
+<li>target = 所有检测框的 score 之和</li>
+</ol>
+</blockquote>
+<p>上述算法的代码实现如下：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">FasterRCNNBoxScoreTarget</span><span class="token punctuation">:</span>
+	<span class="token triple-quoted-string string">""" For every original detected bounding box specified in "bounding boxes",
+		assign a score on how the current bounding boxes match it,
+			1. In IOU
+			2. In the classification score.
+		If there is not a large enough overlap, or the category changed,
+		assign a score of 0.
 
+		The total score is the sum of all the box scores.
+	"""</span>
 
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> labels<span class="token punctuation">,</span> bounding_boxes<span class="token punctuation">,</span> iou_threshold<span class="token operator">=</span><span class="token number">0.5</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>labels <span class="token operator">=</span> labels
+        self<span class="token punctuation">.</span>bounding_boxes <span class="token operator">=</span> bounding_boxes
+        self<span class="token punctuation">.</span>iou_threshold <span class="token operator">=</span> iou_threshold
 
-<h2 id="AlphaPose-环境配置"><a href="#AlphaPose-环境配置" class="headerlink" title="AlphaPose 环境配置"></a>AlphaPose 环境配置</h2><p>官方仓库地址：<a target="_blank" rel="noopener" href="https://github.com/MVIG-SJTU/AlphaPose">MVIG-SJTU/AlphaPose: Real-Time and Accurate Full-Body Multi-Person Pose Estimation&amp;Tracking System (github.com)</a></p>
-<p>官方仓库中给出详细的环境配置指导：<a target="_blank" rel="noopener" href="https://github.com/MVIG-SJTU/AlphaPose/blob/master/docs/INSTALL.md">https://github.com/MVIG-SJTU/AlphaPose/blob/master/docs/INSTALL.md</a></p>
-<p>注意需要下载权重文件：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/fffqh/img_hosting/img/20230103024540.png"></p>
-<p>需要下载ModelZoo中的FastPose模型：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/fffqh/img_hosting/img/20230103024636.png"></p>
-<p>注意需要在AlphaPose项目根目录下自行建立文件夹路径<code>./exp/json/</code>，不然会出错，详情参考issue：<a target="_blank" rel="noopener" href="https://github.com/MVIG-SJTU/AlphaPose/issues/780">Where can I find “validate_gt_kpt.json”? · Issue #780 · MVIG-SJTU/AlphaPose (github.com)</a>。</p>
-<p>验证命令：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./scripts/validate.sh configs/coco/resnet/256x192_res50_lr1e-3_1x.yaml pretrained_models/fast_res50_256x192.pth<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+    <span class="token keyword">def</span> <span class="token function">__call__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> model_outputs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        output <span class="token operator">=</span> torch<span class="token punctuation">.</span>Tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>is_available<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            output <span class="token operator">=</span> output<span class="token punctuation">.</span>cuda<span class="token punctuation">(</span><span class="token punctuation">)</span>
 
-<p>脚本文件：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token keyword">for</span> <span class="token for-or-select variable">num</span> <span class="token keyword">in</span> <span class="token punctuation">&#123;</span><span class="token number">0</span><span class="token punctuation">..</span><span class="token number">9</span><span class="token punctuation">&#125;</span>
-<span class="token keyword">do</span>
-<span class="token function">rm</span> -rf ./data/coco/val2017
-<span class="token function">ln</span> -s <span class="token string">'/root/autodl-tmp/whole/'</span><span class="token variable">$num</span> <span class="token string">'./data/coco/val2017'</span>
-./scripts/validate.sh configs/coco/resnet/256x192_res50_lr1e-3_1x.yaml pretrained_models/fast_res50_256x192.pth
-<span class="token keyword">done</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>model_outputs<span class="token punctuation">[</span><span class="token string">"boxes"</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> output
 
+        <span class="token keyword">for</span> box<span class="token punctuation">,</span> label <span class="token keyword">in</span> <span class="token builtin">zip</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>bounding_boxes<span class="token punctuation">,</span> self<span class="token punctuation">.</span>labels<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            box <span class="token operator">=</span> torch<span class="token punctuation">.</span>Tensor<span class="token punctuation">(</span>box<span class="token punctuation">[</span><span class="token boolean">None</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>is_available<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                box <span class="token operator">=</span> box<span class="token punctuation">.</span>cuda<span class="token punctuation">(</span><span class="token punctuation">)</span>
 
+            ious <span class="token operator">=</span> torchvision<span class="token punctuation">.</span>ops<span class="token punctuation">.</span>box_iou<span class="token punctuation">(</span>box<span class="token punctuation">,</span> model_outputs<span class="token punctuation">[</span><span class="token string">"boxes"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+            index <span class="token operator">=</span> ious<span class="token punctuation">.</span>argmax<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> ious<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> index<span class="token punctuation">]</span> <span class="token operator">></span> self<span class="token punctuation">.</span>iou_threshold <span class="token keyword">and</span> model_outputs<span class="token punctuation">[</span><span class="token string">"labels"</span><span class="token punctuation">]</span><span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">==</span> label<span class="token punctuation">:</span>
+                score <span class="token operator">=</span> ious<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> index<span class="token punctuation">]</span> <span class="token operator">+</span> model_outputs<span class="token punctuation">[</span><span class="token string">"scores"</span><span class="token punctuation">]</span><span class="token punctuation">[</span>index<span class="token punctuation">]</span>
+                output <span class="token operator">=</span> output <span class="token operator">+</span> score
+        <span class="token keyword">return</span> output<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<h3 id="调用EigenCAM接口，完成热力图生成"><a href="#调用EigenCAM接口，完成热力图生成" class="headerlink" title="调用EigenCAM接口，完成热力图生成"></a>调用EigenCAM接口，完成热力图生成</h3><ol>
+<li><p>确定target_layers</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">model <span class="token operator">=</span> torchvision<span class="token punctuation">.</span>models<span class="token punctuation">.</span>detection<span class="token punctuation">.</span>fasterrcnn_resnet50_fpn<span class="token punctuation">(</span>pretrained<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+model<span class="token punctuation">.</span><span class="token builtin">eval</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span>
+target_layers <span class="token operator">=</span> <span class="token punctuation">[</span>model<span class="token punctuation">.</span>backbone<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+<li><p>确定targets</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">targets <span class="token operator">=</span> <span class="token punctuation">[</span>FasterRCNNBoxScoreTarget<span class="token punctuation">(</span>labels<span class="token operator">=</span>labels<span class="token punctuation">,</span> bounding_boxes<span class="token operator">=</span>boxes<span class="token punctuation">)</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>调用 EigenCAM 接口</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">cam <span class="token operator">=</span> EigenCAM<span class="token punctuation">(</span>model<span class="token punctuation">,</span>
+               target_layers<span class="token punctuation">,</span> 
+               use_cuda<span class="token operator">=</span>torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>is_available<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+               reshape_transform<span class="token operator">=</span>fasterrcnn_reshape_transform<span class="token punctuation">)</span>
+
+grayscale_cam <span class="token operator">=</span> cam<span class="token punctuation">(</span>input_tensor<span class="token punctuation">,</span> targets<span class="token operator">=</span>targets<span class="token punctuation">)</span>
+<span class="token comment"># Take the first image in the batch:</span>
+grayscale_cam <span class="token operator">=</span> grayscale_cam<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">]</span>
+cam_image <span class="token operator">=</span> show_cam_on_image<span class="token punctuation">(</span>image_float_np<span class="token punctuation">,</span> grayscale_cam<span class="token punctuation">,</span> use_rgb<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+<span class="token comment"># And lets draw the boxes again:</span>
+image_with_bounding_boxes <span class="token operator">=</span> draw_boxes<span class="token punctuation">(</span>boxes<span class="token punctuation">,</span> labels<span class="token punctuation">,</span> classes<span class="token punctuation">,</span> cam_image<span class="token punctuation">)</span>
+Image<span class="token punctuation">.</span>fromarray<span class="token punctuation">(</span>image_with_bounding_boxes<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h3 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h3><ul>
+<li>关键在于了解目标网络的结构，完成定义生成output_tensor的<strong>自定义变换</strong>，送入<code>reshape_transform</code> 接口参数</li>
+<li>需要考虑目标的确定，对目标进行一个量化，相当于设计一个目标函数。</li>
+</ul>
 
                 
             </div>
@@ -546,7 +671,7 @@ python tools/test.py --cfg experiments/coco/transpose_h/TP_H_w32_256x192_stage3_
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://fffqh.github.io/2023/01/03/zi-tai-gu-ji-mo-xing-shi-yong-yolopose-transpose-alphapose/">https://fffqh.github.io/2023/01/03/zi-tai-gu-ji-mo-xing-shi-yong-yolopose-transpose-alphapose/</a>
+                    <a href="https://fffqh.github.io/2023/01/04/grad-cam-xi-lie-gong-ju-de-qian-yi-shi-yong-li-qiu-neng-gou-zai-ge-chong-mo-xing-shang-shi-yong-ta/">https://fffqh.github.io/2023/01/04/grad-cam-xi-lie-gong-ju-de-qian-yi-shi-yong-li-qiu-neng-gou-zai-ge-chong-mo-xing-shang-shi-yong-ta/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -902,9 +1027,10 @@ python tools/test.py --cfg experiments/coco/transpose_h/TP_H_w32_256x192_stage3_
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2023/01/04/grad-cam-xi-lie-gong-ju-de-qian-yi-shi-yong-li-qiu-neng-gou-zai-ge-chong-mo-xing-shang-shi-yong-ta/">
                     <div class="card-image">
@@ -921,9 +1047,9 @@ python tools/test.py --cfg experiments/coco/transpose_h/TP_H_w32_256x192_stage3_
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-01-04
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-04
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -936,6 +1062,7 @@ python tools/test.py --cfg experiments/coco/transpose_h/TP_H_w32_256x192_stage3_
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -958,13 +1085,12 @@ python tools/test.py --cfg experiments/coco/transpose_h/TP_H_w32_256x192_stage3_
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/01/03/ke-yan-xie-zuo-fu-zhu-gong-ju-shou-ji/">
+                <a href="/2023/01/03/zi-tai-gu-ji-mo-xing-shi-yong-yolopose-transpose-alphapose/">
                     <div class="card-image">
                         
+                        <img src="https://cdn.jsdelivr.net/gh/fffqh/img_hosting/img/20230103025914.png" class="responsive-img" alt="姿态估计模型使用：YoloPose, TransPose, AlphaPose">
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="科研写作辅助工具收集">
-                        
-                        <span class="card-title">科研写作辅助工具收集</span>
+                        <span class="card-title">姿态估计模型使用：YoloPose, TransPose, AlphaPose</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -981,8 +1107,8 @@ python tools/test.py --cfg experiments/coco/transpose_h/TP_H_w32_256x192_stage3_
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%B7%A5%E5%85%B7/" class="post-category">
-                                    工具
+                            <a href="/categories/%E6%A8%A1%E5%9E%8B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="post-category">
+                                    模型环境配置
                                 </a>
                             
                             
@@ -994,6 +1120,10 @@ python tools/test.py --cfg experiments/coco/transpose_h/TP_H_w32_256x192_stage3_
                     
                     <a href="/tags/%E7%A7%91%E7%A0%94/">
                         <span class="chip bg-color">科研</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
                     </a>
                     
                 </div>
