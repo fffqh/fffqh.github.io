@@ -4,8 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, Qkri 的个人博客">
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex">
+    <meta name="keywords" content="文献阅读分析：Adversarial Camouflage: Hiding Physical-World Attacks with Natural Styles, Qkri 的个人博客">
+    <meta name="description" content="
+文章录用情况：CVPR2020
+文章标题：Adversarial Camouflage: Hiding Physical-World Attacks With Natural Styles
+代码：https://github.com/Rj">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +20,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hello World | Qkri 的个人博客</title>
+    <title>文献阅读分析：Adversarial Camouflage: Hiding Physical-World Attacks with Natural Styles | Qkri 的个人博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
     <style>
@@ -354,12 +357,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title">文献阅读分析：Adversarial Camouflage: Hiding Physical-World Attacks with Natural Styles</h1>
                 </div>
             </div>
         </div>
@@ -381,12 +384,33 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E7%A7%91%E7%A0%94/">
+                                <span class="chip bg-color">科研</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%96%87%E7%8C%AE%E9%98%85%E8%AF%BB/">
+                                <span class="chip bg-color">文献阅读</span>
+                            </a>
+                        
+                            <a href="/tags/%E4%BC%AA%E8%A3%85%E5%AF%B9%E6%8A%97%E6%A0%B7%E6%9C%AC/">
+                                <span class="chip bg-color">伪装对抗样本</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%96%87%E7%8C%AE%E9%98%85%E8%AF%BB/" class="post-category">
+                                文献阅读
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -395,28 +419,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-08-12
+                    2023-01-05
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-08-12
+                    2023-01-06
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    73
+                    918
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    3 分
                 </div>
                 
 
@@ -444,21 +468,94 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<span id="more"></span>
+                <blockquote>
+<p>文章录用情况：CVPR2020</p>
+<p>文章标题：Adversarial Camouflage: Hiding Physical-World Attacks With Natural Styles</p>
+<p>代码：<a target="_blank" rel="noopener" href="https://github.com/RjDuan/AdvCam-Hide-Adv-with-Natural-Styles">https://github.com/RjDuan/AdvCam-Hide-Adv-with-Natural-Styles</a></p>
+</blockquote>
+<h2 id="1-摘要与技术路线"><a href="#1-摘要与技术路线" class="headerlink" title="1.摘要与技术路线"></a>1.摘要与技术路线</h2><p>实现了针对分类器的伪装对抗样本生成，进行了数字攻击和物理攻击实验验证。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fffqh/img_hosting/img/20230106001104.png" alt="总体技术路线图"></p>
+<p>这张技术路线图有4个关键点值得注意：</p>
+<ul>
+<li>Customization部分：注意有个遮罩，并且有风格图像，这个是否需要针对具体图像进行人工设计？有无更好的解决方案？</li>
+<li>Physical Adaptation部分：进行了多样的图像变换，注意将其集成到优化循环中的方式。</li>
+<li>Feature Extrator：具体是如何提取的特征，如何得到的Style Loss？</li>
+<li>扰动是如何优化得到的，是否直接修改像素值，还是有另外一个扰动生成网络？（推测扰动不是图像间通用的）</li>
+</ul>
+<h2 id="2-关键方法"><a href="#2-关键方法" class="headerlink" title="2.关键方法"></a>2.关键方法</h2><h3 id="2-1遮罩的使用"><a href="#2-1遮罩的使用" class="headerlink" title="2.1遮罩的使用"></a>2.1遮罩的使用</h3><p>遮罩这个看起来不起眼的技术，感觉起到了一个关键作用，使得不同任务之间不会产生直接的冲突。分析模型输入，该模型共有两个遮罩：content mask 和 style mask，会在<strong>计算 style loss</strong>和完成<strong>物理条件的变换</strong>时用到。</p>
+<h3 id="2-2风格化技术：构造-Style-Loss"><a href="#2-2风格化技术：构造-Style-Loss" class="headerlink" title="2.2风格化技术：构造 Style Loss"></a>2.2风格化技术：构造 Style Loss</h3><h4 id="Gram矩阵"><a href="#Gram矩阵" class="headerlink" title="Gram矩阵"></a>Gram矩阵</h4><p>Gram矩阵是两两向量的<strong>内积</strong>组成，所以Gram矩阵可以反映出该组向量中各个向量之间的某种关系。有点类似协方差矩阵，不过这里的对象是向量不是随机变量。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fffqh/img_hosting/img/20230106125152.png"></p>
+<h4 id="风格一致的度量"><a href="#风格一致的度量" class="headerlink" title="风格一致的度量"></a>风格一致的度量</h4><p>使用<strong>Gram矩阵</strong>进行风格的度量，将两张图片分别送入CNN网络，将卷积网络中间的<strong>某几层特征向量</strong>取出，分别计算两张图片的这些特征向量的Gram矩阵，然后计算两个Gram矩阵的相似度，越小则风格越接近。<br>$$<br>D_s = \sum_{l\in S_l} ||G(F_l(x^s))-G(F_l(x’))||_2^2<br>$$<br>本模型中计算Style Loss具体使用的特征向量为：vgg.conv1_1, vgg.conv2_1, vgg.conv3_1, vgg.conv4_1, vgg.conv5_1。</p>
+<h3 id="2-3内容损失：Content-Loss"><a href="#2-3内容损失：Content-Loss" class="headerlink" title="2.3内容损失：Content Loss"></a>2.3内容损失：Content Loss</h3><p>使用 vgg.conv4_2作为内容损失计算的特征值。没有使用mask。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">content_loss</span><span class="token punctuation">(</span>const_layer<span class="token punctuation">,</span> var_layer<span class="token punctuation">,</span> weight<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> tf<span class="token punctuation">.</span>reduce_mean<span class="token punctuation">(</span>tf<span class="token punctuation">.</span>squared_difference<span class="token punctuation">(</span>const_layer<span class="token punctuation">,</span> var_layer<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">*</span> weight<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="2-4对抗损失：Adversarial-Loss"><a href="#2-4对抗损失：Adversarial-Loss" class="headerlink" title="2.4对抗损失：Adversarial Loss"></a>2.4对抗损失：Adversarial Loss</h3><p>分为有目标损失和无目标损失。</p>
+<ul>
+<li>有目标损失</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">targeted_attack_loss</span><span class="token punctuation">(</span>pred<span class="token punctuation">,</span> orig_pred<span class="token punctuation">,</span> target<span class="token punctuation">,</span> weight<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""
+    Note:
+        balance can be adjusted by user for better results, range in [2,5] is recommended
+    Arguments:
+        pred &#123;logits&#125; -- Logits output by threat model (input: adv) 
+        orig_pred &#123;int&#125; --  Original (correct) prediction by threat model
+        target &#123;int&#125; -- Target lable assigned by user, range in [0,999]
+        weight &#123;float32&#125; -- Attack weight assigned by user (args.attack_weight)
+    
+    Returns:
+        [type] -- [description]
+    """</span>
+    balance <span class="token operator">=</span> <span class="token number">5</span>
+    orig_pred <span class="token operator">=</span> np<span class="token punctuation">.</span>eye<span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">[</span>orig_pred<span class="token punctuation">]</span>
+    target <span class="token operator">=</span> np<span class="token punctuation">.</span>eye<span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">[</span>target<span class="token punctuation">]</span>
+    loss1 <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token operator">*</span> tf<span class="token punctuation">.</span>nn<span class="token punctuation">.</span>softmax_cross_entropy_with_logits_v2<span class="token punctuation">(</span>
+        labels<span class="token operator">=</span>orig_pred<span class="token punctuation">,</span> logits<span class="token operator">=</span>pred<span class="token punctuation">)</span>
+    loss2 <span class="token operator">=</span> tf<span class="token punctuation">.</span>nn<span class="token punctuation">.</span>softmax_cross_entropy_with_logits_v2<span class="token punctuation">(</span>
+        labels<span class="token operator">=</span>target<span class="token punctuation">,</span> logits<span class="token operator">=</span>pred<span class="token punctuation">)</span>
+    loss_attack <span class="token operator">=</span> tf<span class="token punctuation">.</span>reduce_sum<span class="token punctuation">(</span>balance<span class="token operator">*</span>loss2 <span class="token operator">+</span> loss1<span class="token punctuation">)</span> <span class="token operator">*</span> weight
+    <span class="token keyword">return</span> loss_attack<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li>无目标损失</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">untargeted_attack_loss</span><span class="token punctuation">(</span>pred<span class="token punctuation">,</span> orig_pred<span class="token punctuation">,</span> weight<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""
+    Arguments:
+        pred &#123;logits&#125; -- Logits output by threat model (input: adv)
+        orig_pred &#123;int&#125; -- Original (correct) prediction by threat model
+        weight &#123;float32&#125; -- Attack weight assigned by user (args.attack_weight)
+    
+    Returns:
+        untargeted_attack_loss
+    """</span>
+    orig_pred <span class="token operator">=</span> np<span class="token punctuation">.</span>eye<span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">[</span>orig_pred<span class="token punctuation">]</span>
+    loss1 <span class="token operator">=</span> <span class="token operator">-</span>tf<span class="token punctuation">.</span>nn<span class="token punctuation">.</span>softmax_cross_entropy_with_logits_v2<span class="token punctuation">(</span>labels<span class="token operator">=</span>orig_pred<span class="token punctuation">,</span> logits<span class="token operator">=</span>pred<span class="token punctuation">)</span>
+    loss_attack <span class="token operator">=</span> loss1
+    <span class="token keyword">return</span> loss_attack <span class="token operator">*</span> weight<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo generate<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo deploy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h3 id="2-5平滑损失：Smoothness-Loss"><a href="#2-5平滑损失：Smoothness-Loss" class="headerlink" title="2.5平滑损失：Smoothness Loss"></a>2.5平滑损失：Smoothness Loss</h3><p>使用图像的全变分构造损失函数：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">total_variation_loss</span><span class="token punctuation">(</span>output<span class="token punctuation">,</span> weight<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    tv_loss <span class="token operator">=</span> tf<span class="token punctuation">.</span>reduce_sum<span class="token punctuation">(</span>
+        <span class="token punctuation">(</span>output<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">]</span> <span class="token operator">-</span> output<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>output<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">]</span> <span class="token operator">-</span> output<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">+</span> \
+        <span class="token punctuation">(</span>output<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">]</span> <span class="token operator">-</span> output<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>output<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">]</span> <span class="token operator">-</span> output<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2.0</span>
+    <span class="token keyword">return</span> tv_loss <span class="token operator">*</span> weight<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="2-6针对物理条件的图像适应技术"><a href="#2-6针对物理条件的图像适应技术" class="headerlink" title="2.6针对物理条件的图像适应技术"></a>2.6针对物理条件的图像适应技术</h3><ul>
+<li>随机选取背景图片，使用 content_mask</li>
+<li>缩放、旋转等变换</li>
+</ul>
+<h2 id="3-思考"><a href="#3-思考" class="headerlink" title="3.思考"></a>3.思考</h2><ul>
+<li>需要手工构造mask，设计伪装效果</li>
+<li>缺乏大规模实验，攻击成功率有待进一步实验（使用了150张图片进行实验）</li>
+<li>推广到目标检测等模型</li>
+<li>进行语义化的尝试</li>
+</ul>
 
                 
             </div>
@@ -485,7 +582,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://fffqh.github.io/2021/08/12/hello-world/">https://fffqh.github.io/2021/08/12/hello-world/</a>
+                    <a href="https://fffqh.github.io/2023/01/05/wen-xian-yue-du-fen-xi-adversarial-camouflage-hiding-physical-world-attacks-with-natural-styles/">https://fffqh.github.io/2023/01/05/wen-xian-yue-du-fen-xi-adversarial-camouflage-hiding-physical-world-attacks-with-natural-styles/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -522,7 +619,19 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E7%A7%91%E7%A0%94/">
+                                    <span class="chip bg-color">科研</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%96%87%E7%8C%AE%E9%98%85%E8%AF%BB/">
+                                    <span class="chip bg-color">文献阅读</span>
+                                </a>
+                            
+                                <a href="/tags/%E4%BC%AA%E8%A3%85%E5%AF%B9%E6%8A%97%E6%A0%B7%E6%9C%AC/">
+                                    <span class="chip bg-color">伪装对抗样本</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -833,42 +942,56 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/08/14/ru-he-kuai-su-jiang-javascript-xiang-mu-da-bao-cheng-electron-zhuo-mian-ying-yong/">
+                <a href="/2023/01/05/wen-xian-yue-du-fen-xi-adversarial-camouflage-hiding-physical-world-attacks-with-natural-styles/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="如何快速将JavaScript项目打包成Electron桌面应用">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="文献阅读分析：Adversarial Camouflage: Hiding Physical-World Attacks with Natural Styles">
                         
-                        <span class="card-title">如何快速将JavaScript项目打包成Electron桌面应用</span>
+                        <span class="card-title">文献阅读分析：Adversarial Camouflage: Hiding Physical-World Attacks with Natural Styles</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            前情提要：为了完成某门课设作业，使用 html + css + javascript 与 bootstrap 框架、d3.js、dagre-d3 等库糊了两个web演示界面（分别是 赫夫曼编码演示 与 AOE网演示 ）。写完后，尝试使用 e
+                            
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-14
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-05
+                            </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Qkri
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%96%87%E7%8C%AE%E9%98%85%E8%AF%BB/" class="post-category">
+                                    文献阅读
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/web-electron-javascript/">
-                        <span class="chip bg-color">web electron javascript</span>
+                    <a href="/tags/%E7%A7%91%E7%A0%94/">
+                        <span class="chip bg-color">科研</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%96%87%E7%8C%AE%E9%98%85%E8%AF%BB/">
+                        <span class="chip bg-color">文献阅读</span>
+                    </a>
+                    
+                    <a href="/tags/%E4%BC%AA%E8%A3%85%E5%AF%B9%E6%8A%97%E6%A0%B7%E6%9C%AC/">
+                        <span class="chip bg-color">伪装对抗样本</span>
                     </a>
                     
                 </div>
@@ -879,37 +1002,51 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/08/12/hello-world/">
+                <a href="/2023/01/04/grad-cam-xi-lie-gong-ju-de-qian-yi-shi-yong-li-qiu-neng-gou-zai-ge-chong-mo-xing-shang-shi-yong-ta/">
                     <div class="card-image">
                         
+                        <img src="https://cdn.jsdelivr.net/gh/fffqh/img_hosting/img/20230105123403.png" class="responsive-img" alt="Grad-CAM系列工具的迁移使用：力求能够在各种模型上使用它">
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
-                        
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">Grad-CAM系列工具的迁移使用：力求能够在各种模型上使用它</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex
+                            
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-12
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-04
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Qkri
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%A8%A1%E5%9E%8B%E8%BF%81%E7%A7%BB%E4%BD%BF%E7%94%A8/" class="post-category">
+                                    模型迁移使用
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%A7%91%E7%A0%94/">
+                        <span class="chip bg-color">科研</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -1030,6 +1167,13 @@
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
 
 
 
